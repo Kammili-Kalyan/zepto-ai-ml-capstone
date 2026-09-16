@@ -1,0 +1,56 @@
+PANDAS COMPARISON
+=================
+
+SQL QUERY 1 RESULT:
+                                                                   title  price_inr  rating
+                                                                  Thirst    1821.98       5
+                                Finders Keepers (Bill Hodges Trilogy #2)    5647.42       5
+                                    The Regional Office Is Under Attack!    5418.48       5
+                                            We Love You, Charlie Freeman    5303.48       5
+                                             Private Paris (Private #10)    5022.85       5
+                                                         The Time Keeper    2941.34       5
+       What Happened on Beale Street (Secrets of the South Mysteries #2)    2676.54       5
+                                  A Time of Torment (Charlie Parker #14)    5100.92       5
+The Bachelor Girl's Guide to Murder (Herringford and Watts Mysteries #1)    5517.65       5
+      #HigherSelfie: Wake Up Your Life. Free Your Soul. Find Your Tribe.    2438.10       5
+                 The Artist's Way: A Spiritual Path to Higher Creativity    4060.70       5
+                 Worlds Elsewhere: Journeys Around Shakespeareâs Globe    4251.65       5
+      Call the Nurse: True Stories of a Country Nurse on a Scottish Isle    3074.27       5
+
+SQL QUERY 2 RESULT:
+                                                         title  price_inr
+                                 Boar Island (Anna Pigeon #19)    6275.14
+                                           The Past Never Ends    5960.75
+The Electric Pencil: Drawings from Inside State Hospital No. 3    5914.33
+                                                         Shtum    5891.12
+         Murder at the 42nd Street Library (Raymond Ambler #1)    5734.98
+
+SQL QUERY 3 RESULT:
+                                                                   title  price_inr  rating category_name
+                                                                  Thirst    1821.98       5       Fiction
+                                Finders Keepers (Bill Hodges Trilogy #2)    5647.42       5       Fiction
+                                    The Regional Office Is Under Attack!    5418.48       5       Fiction
+                                            We Love You, Charlie Freeman    5303.48       5       Fiction
+                                             Private Paris (Private #10)    5022.85       5       Fiction
+                                                         The Time Keeper    2941.34       5       Fiction
+       What Happened on Beale Street (Secrets of the South Mysteries #2)    2676.54       5       Mystery
+                                  A Time of Torment (Charlie Parker #14)    5100.92       5       Mystery
+The Bachelor Girl's Guide to Murder (Herringford and Watts Mysteries #1)    5517.65       5       Mystery
+      #HigherSelfie: Wake Up Your Life. Free Your Soul. Find Your Tribe.    2438.10       5    Nonfiction
+
+PANDAS MERGE RESULT:
+                                                                   title  price_inr  rating category_name
+                                                                  Thirst    1821.98       5       Fiction
+                                Finders Keepers (Bill Hodges Trilogy #2)    5647.42       5       Fiction
+                                    The Regional Office Is Under Attack!    5418.48       5       Fiction
+                                            We Love You, Charlie Freeman    5303.48       5       Fiction
+                                             Private Paris (Private #10)    5022.85       5       Fiction
+                                  A Time of Torment (Charlie Parker #14)    5100.92       5       Mystery
+The Bachelor Girl's Guide to Murder (Herringford and Watts Mysteries #1)    5517.65       5       Mystery
+                                                         The Time Keeper    2941.34       5       Fiction
+       What Happened on Beale Street (Secrets of the South Mysteries #2)    2676.54       5       Mystery
+                 The Artist's Way: A Spiritual Path to Higher Creativity    4060.70       5    Nonfiction
+
+JOIN COMPARISON:
+SQL JOIN rows: 10
+Pandas merge rows: 10

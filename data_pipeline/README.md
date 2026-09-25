@@ -1,68 +1,154 @@
-# Data Pipeline
+## Module 1 — Data Pipeline
 
-## Overview
+### Overview
 
-This module scrapes book data from Books to Scrape, cleans the data, converts prices from GBP to INR, stores the data in SQLite, and performs SQL and Pandas analysis.
+The Data Pipeline module implements an end-to-end data engineering workflow:
 
-## Data Collection
+**Scraping → Cleaning → Currency Conversion → SQLite Storage → SQL Queries → Pandas Validation**
 
-- Source: Books to Scrape
-- Categories scraped: 3
-- Total books collected: 60
-- Tools: Requests and BeautifulSoup
+The data source is `books.toscrape.com`, a public website created for
+scraping practice.
 
-## Data Cleaning
+### Data Collection
 
-The following fields were cleaned:
+The scraping pipeline uses:
 
-- `price_gbp` converted to float
-- Star ratings converted from text to integers from 1 to 5
-- Availability converted to boolean `in_stock`
-- Category information retained for database relationships
+- Python
+- `requests`
+- `BeautifulSoup`
 
-## Currency Conversion
+Books are scraped from three different categories.
 
-A fixed project conversion rate was used:
+The final dataset contains 60 book records.
 
-`1 GBP = 105.50 INR`
+The following fields are collected:
 
-The rate is fixed as required by the project and is not fetched from a live API.
+- `title`
+- `price`
+- `star_rating`
+- `availability`
+- `category`
 
-## Database
+### Data Cleaning
 
-The cleaned data is stored in SQLite using related tables:
+The scraped fields are converted into appropriate data types.
+
+# Price
+
+The currency symbol is removed from the scraped price and the value is
+converted into the numeric column:
+
+`price_gbp`
+
+# Rating
+
+The text ratings are converted into integers:
+
+- One → 1
+- Two → 2
+- Three → 3
+- Four → 4
+- Five → 5
+
+The resulting column is:
+
+`rating`
+
+# Availability
+
+The availability text is converted into a Boolean value in:
+
+`in_stock`
+
+This represents whether the book is currently available.
+
+# Handling Parsing Problems
+
+The pipeline includes handling for values that cannot be parsed correctly.
+Numeric parsing problems are handled using the required median-imputation
+approach, while rows that cannot be safely processed can be dropped rather
+than allowing the pipeline to fail.
+
+### Currency Conversion
+
+The project-required fixed conversion rate is:
+
+**1 GBP = 105.50 INR**
+
+The `price_inr` column is calculated from `price_gbp` using this fixed
+project-defined rate.
+
+No external currency API is required.
+
+### Database Design
+
+The cleaned data is stored in SQLite using a normalized two-table schema.
+
+The database contains:
 
 - `categories`
 - `books`
 
-The `books` table uses `category_id` as a foreign key to the `categories` table.
+The `categories` table contains a primary key.
 
-## SQL Analysis
+The `books` table contains a foreign key referencing the category.
 
-The project includes SQL queries covering:
+This creates the required primary-key/foreign-key relationship and avoids
+unnecessary duplication of category information.
 
-- Filtering with `WHERE`
-- Sorting with `ORDER BY`
+### SQL Queries
+
+At least five SQL queries are executed against the database.
+
+The queries collectively demonstrate:
+
+- `SELECT`
+- `WHERE`
+- `ORDER BY`
 - `LIMIT`
 - `DISTINCT`
-- `BETWEEN`
-- Table `JOIN`
+- `IN` / `BETWEEN`
+- `JOIN`
 
-Query outputs are saved in the project for verification.
+The SQL queries and their outputs are saved in the project.
 
-## Pandas Comparison
+### Pandas Validation
 
-At least two SQL results are loaded using `pd.read_sql`.
+SQL query results are read into pandas DataFrames using:
 
-The SQL JOIN result is reproduced using `pd.merge()` in Pandas and the outputs are compared.
+`pd.read_sql()`
 
-## Files
+The JOIN result is also reproduced using:
 
-- `scraper.py` — web scraping and cleaning
-- `database.py` — SQLite database creation and insertion
-- `queries.py` — SQL queries
-- `queries.sql` — saved SQL queries
-- `query_outputs.txt` — SQL query outputs
-- `pandas_comparison.py` — SQL and Pandas comparison
-- `pandas_comparison.txt` — comparison output
-- `books.db` — SQLite database
+`pd.merge()`
+
+The SQL-based and pandas-based results are compared to verify that the
+results match.
+
+### How to Run
+
+From the project root, run the Module 1 pipeline using the project's
+data-pipeline script/notebook.
+
+The pipeline performs the following steps:
+
+1. Scrape the book data.
+2. Clean the scraped fields.
+3. Convert prices from GBP to INR using the fixed rate of 105.50.
+4. Create/populate the SQLite database.
+5. Execute the required SQL queries.
+6. Generate/save the query outputs.
+7. Perform the pandas `pd.read_sql()` and `pd.merge()` comparison.
+
+### Design Decisions
+
+1. `requests` and `BeautifulSoup` were selected for HTML scraping because
+   the source website provides publicly accessible HTML data.
+2. The fixed conversion rate of **1 GBP = 105.50 INR** is used because it
+   is the project-defined baseline.
+3. SQLite was selected because it provides a lightweight relational
+   database suitable for this local project.
+4. A normalized two-table schema was used to maintain the required
+   primary-key/foreign-key relationship.
+5. Pandas was used to independently reproduce the JOIN result and verify
+   the SQL result.

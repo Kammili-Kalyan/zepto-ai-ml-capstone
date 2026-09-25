@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS books(
         )"""
 )
 
+cursor.execute("DELETE FROM books")
+cursor.execute("DELETE FROM categories")
+
 #insert data in categories
 categories=df['category'].unique()
 

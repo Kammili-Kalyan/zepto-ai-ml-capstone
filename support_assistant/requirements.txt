@@ -1,5 +1,7 @@
 sentence-transformers
-ChromaDB
-LangGraph
-FastAPI
-Pydantic
+chromadb
+langgraph
+fastapi
+pydantic
+uvicorn
+torch

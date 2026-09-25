@@ -1,0 +1,11 @@
+from pydantic import BaseModel, Field
+
+
+class SupportResponse(BaseModel):
+    answer: str
+    sources: list[str]
+    confidence: float = Field(ge=0.0, le=1.0)
+
+
+class AskRequest(BaseModel):
+    query: str = Field(..., min_length=1)

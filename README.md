@@ -41,8 +41,8 @@ The support assistant uses Zepto policy documents, embeddings, ChromaDB, LangGra
 
 Project setup completed.
 
-* [ ] Data Pipeline
-* [ ] Analytics
-* [ ] Support Assistant
-* [ ] Final testing
-* [ ] Final submission
+* [Done] Data Pipeline
+* [Done] Analytics
+* [Done] Support Assistant
+* [Done] Final testing
+* [Done] Final submission

@@ -15,3 +15,6 @@ venv/
 # OS files
 .DS_Store
 Thumbs.db
+
+
+support_assistant/chroma_db/
